@@ -6,6 +6,10 @@ Using [**CafeLoader Project Compiler**](https://github.com/aboood40091/CafeLoade
 
 It can also compile for Cemu (it produces a new game RPX) [**here**](https://github.com/aboood40091/CafeLoader-Project-Compiler/tree/cemu)
 
+# Restrictions
+
+C++03.
+
 # List of things i'm currently trying to implement
 
 - Cup selection page (mn_GrprCupSlct_00)
