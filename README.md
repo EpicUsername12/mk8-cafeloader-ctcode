@@ -2,6 +2,10 @@
 
 This repositories aims at documenting and adding latest Mario Kart 8 Deluxe functionnality
 
+Using [**CafeLoader Project Compiler**](https://github.com/aboood40091/CafeLoader-Project-Compiler) by [**aboood40091**](https://github.com/aboood40091/CafeLoader-Project-Compiler)
+
+It can also compile for Cemu (it produces a new game RPX) [**here**](https://github.com/aboood40091/CafeLoader-Project-Compiler/tree/cemu)
+
 # List of things i'm currently trying to implement
 
 - Cup selection page (mn_GrprCupSlct_00)
