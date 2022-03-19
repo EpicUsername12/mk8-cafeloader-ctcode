@@ -1,0 +1,6 @@
+
+---
+Name: CTGP-Cafe
+Include: ../files/include/sead
+Modules:
+  - init.yaml

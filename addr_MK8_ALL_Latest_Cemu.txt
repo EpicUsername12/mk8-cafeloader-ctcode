@@ -1,0 +1,6 @@
+
+-textAddr = 0x02b01db4
+-dataAddr = 0x10248a4c
+-symsAddr = 0xc0009ba8
+
+00000000 - 50000000: Addr + 0

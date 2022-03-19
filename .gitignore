@@ -1,0 +1,71 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Other files
+addrconv.py
+addrconv_cemu.py
+elf.py
+compiler.py
+compiler_cemu.py
+__pycache__/*
+files/game_MK8_ALL_Latest.x
+files/game_MK8_ALL_Latest_Cemu.x
+files/project.ld
+files/project.gpj
+files/Out/*
+OutProj/*
+*.elf
+*.rpx
+*.ti
+.vscode/
+ctgp_files/

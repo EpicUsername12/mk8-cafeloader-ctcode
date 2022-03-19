@@ -1,0 +1,17 @@
+---
+Files:
+  - source/dynamic_libs/gx2_functions.cpp
+  - source/dynamic_libs/os_functions.cpp
+  - source/dynamic_libs/fs_functions.cpp
+  - source/dynamic_libs/nn_act_functions.cpp
+  - source/init.cpp
+Hooks:
+  # main() hook
+  - type: branch
+    instr: bl
+    addr: 02677548
+    func: call_ctors
+  # Extend common.szs archive "maximum size"
+  - type: patch
+    addr: 0254B51C
+    data: 3C E0 00 50 # lis r7, 0x46 -> lis r7, 0x50
