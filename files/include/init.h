@@ -11,6 +11,9 @@
 #include <mk8/nw/lyt/Resource.h>
 #include <mk8/nw/lyt/Layout.h>
 #include <mk8/ui/Heaps/Heap_Boot.h>
+#include <mk8/ui/Pages/Page_CourseVS.h>
+#include <mk8/ui/Deluxe/Control_NXBtnL.h>
+#include <mk8/ui/Deluxe/Control_NXBtnR.h>
 
 #include <heap/seadHeapMgr.h>
 #include <heap/seadExpHeap.h>

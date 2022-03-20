@@ -11,6 +11,7 @@ typedef class UIControl UIControl;
 #include <prim/seadSafeString.h>
 #include <mk8/ui/UIAnimator.h>
 #include <mk8/ui/UILoader.h>
+#include <mk8/ui/UIInput.h>
 
 namespace ui {
 typedef class UIPage UIPage;
@@ -60,7 +61,26 @@ class UIControl {
 
     void setVisible(nw::lyt::Pane* pane, bool isVisible);
 
-    void onHandler(ui::UIEvent const& event);
+    void pushInput(UIInput&);
+
+    UIAnimator* createAnimator(int index, int numAnims);
+
+    virtual void onCreate() {
+    }
+    virtual void unk1() {
+    }
+    virtual void onIn() {
+    }
+    virtual void onCalc() {
+    }
+    virtual void unk2() {
+    }
+    virtual void onFollowCursor(void* Page_Cursor, int);
+    virtual void onVisibleCursor();
+    virtual void onDrawDummy(void* UIDrawInfo) {
+    }
+    virtual void onHandler(ui::UIEvent const& event) {
+    }
 };
 } // namespace ui
 

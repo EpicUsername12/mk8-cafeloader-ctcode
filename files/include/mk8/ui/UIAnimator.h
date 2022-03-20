@@ -29,7 +29,8 @@ class UIAnimator {
     int field_04;
     sead::Buffer<UIAnimation*> animations;
 
-    void bind(int index, sead::SafeStringBase<char> const& parent, sead::SafeStringBase<char> const& child);
+    void bind(int index, sead::SafeStringBase<char> const& name);
+    void stop(int unk, float frame);
 };
 
 } // namespace ui

@@ -38,19 +38,38 @@ Hooks:
   - type: patch
     addr: 0254C9F8
     data: 3C E0 01 D0 # lis r7, 0x1AA -> lis r7, 0x1CD
-  
+
+  # Page_CourseBase_LoadPanes calls
   - type: branch
     instr: bl
-    addr: 025331BC
-    func: nw_lyt_MultiArcResourceAccessor_LoadResource__FPQ3_2nw3lyt24MultiArcResourceAccessorUiPCcPUi
+    addr: 025BBB2C
+    func: Page_CourseBase_LoadPanes
   - type: branch
     instr: bl
-    addr: 02554048
-    func: hook_sys_ResourceLoader_loadDirect
+    addr: 025BBF24
+    func: Page_CourseBase_LoadPanes
+
+  # Page_CourseBase_LoadAnimations calls
   - type: branch
     instr: bl
-    addr: 02554568
-    func: hook_sys_ResourceLoader_loadDirect
+    addr: 025BBB1C
+    func: Page_CourseBase_LoadAnimations
+  - type: branch
+    instr: bl
+    addr: 025BBF14 
+    func: Page_CourseBase_LoadAnimations
+  - type: patch
+    addr: 025B9480
+    data: 38 00 00 0B # li r0, 6 -> li r0, 11
+
+  - type: branch
+    instr: bl
+    addr: 025BA1C4
+    func: hook_Page_CourseBase_initialize
+  - type: branch
+    instr: bl
+    addr: 025BB758
+    func: hook_Page_CourseBase_initialize
 
 
   

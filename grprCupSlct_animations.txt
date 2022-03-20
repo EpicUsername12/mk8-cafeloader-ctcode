@@ -1,0 +1,24 @@
+animatorIdx (numAnim): names ... |
+
+0  (1): CourseBGChange
+1  (1): TrophyOnOff
+2  (1): RandomBtnOnOff
+3  (1): CupIconLineChange_00
+4  (4): InAll_RL | InAll_LR | OutAll_RL | OutAll_LR
+5  (1): Icon_08
+
+6  (2): CupIn | CupOut
+7  (1): ChangeIconVisible
+8  (2): BGBoardChangeWtoB | BGBoardChangeBtoW
+9  (1): Loop
+10 (2): LBtnDown | RBtnDown
+
+
+Cup buttons:
+
+0 (2): In | Out 
+1 (4): OnOff | OnOff | Decide | ???
+2 (1): IconChange
+3 (1): UnlockChange
+4 (1): Loop
+5 (1): TktPtn

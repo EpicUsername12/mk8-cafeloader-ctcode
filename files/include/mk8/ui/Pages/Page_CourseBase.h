@@ -39,6 +39,8 @@ class Page_CourseBase : public UIPage {
     uint8_t field_2CB;
 
     void LoadPanes(UIControl* mainControl, bool unk);
+    void LoadAnimations(UIControl* mainControl);
+    void initialize();
 };
 } // namespace ui
 

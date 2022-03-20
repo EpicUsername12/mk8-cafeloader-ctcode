@@ -105,7 +105,7 @@ class UIPage {
 
     int onHandler(ui::UIEvent& event);
 
-    UIAnimator* createAnimator(int r4, UIControl* control, int r6);
+    UIAnimator* createAnimator(int idx, UIControl* control, int numAnims);
 };
 } // namespace ui
 
