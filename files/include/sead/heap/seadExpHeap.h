@@ -40,9 +40,8 @@ class ExpHeap : public Heap {
                            bool);
     static ExpHeap* create(void* address, size_t size, const SafeString& name, bool);
 
-    static ExpHeap* tryCreate(size_t size, const SafeString& name, Heap* parent, s32 alignment, HeapDirection direction,
-                              bool);
-    static ExpHeap* tryCreate(void* address, size_t size, const SafeString& name, bool);
+    static ExpHeap* tryCreate(size_t size, const SafeString& name, Heap* parent, HeapDirection direction, bool);
+    static ExpHeap* tryCreate(void* ptr, size_t size, sead::SafeString const& name, bool);
 
     static size_t getManagementAreaSize(s32);
 

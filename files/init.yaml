@@ -11,7 +11,46 @@ Hooks:
     instr: bl
     addr: 02677548
     func: call_ctors
-  # Extend common.szs archive "maximum size"
+
+  # ui::Heap_Boot::onCreateHeap hook
+  - type: funcptr
+    addr: 100D20EC
+    func: hook_ui_Heap_Boot_onCreateHeap
+   # ui::Heap_MenuSub::onCreateHeap hook
+  - type: funcptr
+    addr: 100D2194
+    func: hook_ui_Heap_MenuSub_onCreateHeap
+
+  # Extend UIHeap_Common size
+  - type: patch
+    addr: 0254AE9C
+    data: 3C 60 01 80 # lis r3, 0x106 -> lis r3, 0x150
+  # Extend common.szs archive "decompressed size"
   - type: patch
     addr: 0254B51C
-    data: 3C E0 00 50 # lis r7, 0x46 -> lis r7, 0x50
+    data: 3C E0 00 50 # lis r7, 0x46 -> lis r7, 0x48
+
+  # Extend UIHeap_Menu size
+  - type: patch
+    addr: 0254C8F4
+    data: 3C 60 02 D0 # lis r3, 0x292 -> lis r3, 0x2A0
+  # Extend menu.szs archive "decompressed size"
+  - type: patch
+    addr: 0254C9F8
+    data: 3C E0 01 D0 # lis r7, 0x1AA -> lis r7, 0x1CD
+  
+  - type: branch
+    instr: bl
+    addr: 025331BC
+    func: nw_lyt_MultiArcResourceAccessor_LoadResource__FPQ3_2nw3lyt24MultiArcResourceAccessorUiPCcPUi
+  - type: branch
+    instr: bl
+    addr: 02554048
+    func: hook_sys_ResourceLoader_loadDirect
+  - type: branch
+    instr: bl
+    addr: 02554568
+    func: hook_sys_ResourceLoader_loadDirect
+
+
+  

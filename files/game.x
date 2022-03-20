@@ -37,7 +37,8 @@ SECTIONS {
     sIndependentHeaps__Q2_4sead7HeapMgr = 0x102059BC;
     setCurrentHeap___Q2_4sead7HeapMgrFPQ2_4sead4Heap = 0x0273D294;
     __ct__Q2_4sead8UnitHeapFRCQ2_4sead23SafeStringBase__tm__2_cPQ2_4sead4HeapPvUiT4b = 0x0273D420;
-    tryCreate__Q2_4sead7ExpHeapSFUiRCQ2_4sead23SafeStringBase__tm__2_cPQ2_4sead4HeapiQ3_4sead4Heap13HeapDirectionb = 0x0273A128;
+    tryCreate__Q2_4sead7ExpHeapSFUiRCQ2_4sead23SafeStringBase__tm__2_cPQ2_4sead4HeapQ3_4sead4Heap13HeapDirectionb = 0x0273A128;
+    tryCreate__Q2_4sead7ExpHeapSFPvUiRCQ2_4sead23SafeStringBase__tm__2_cb = 0x0273A260;
 
     /* MK8 globals */
     gCupPaneNames = 0x100DC77C;
@@ -47,6 +48,7 @@ SECTIONS {
     /* nw::lyt functions */
     LoadTexture__Q2_2nw3lytFPQ3_2nw3lyt11TextureInfoPCvUi = 0x026A0F04;
     setVisible__Q3_2nw3lyt4PaneFb = 0x0;
+    s_pAllocator__Q3_2nw3lyt6Layout = 0x1018C150;
 
     /* net::NetworkEngine */
     registTransporter___Q2_3net13NetworkEngineFv = 0x023DFFD8;
