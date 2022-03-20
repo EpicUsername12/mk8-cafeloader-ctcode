@@ -6,6 +6,11 @@ Using [**CafeLoader Project Compiler**](https://github.com/aboood40091/CafeLoade
 
 It can also compile for Cemu (it produces a new game RPX) [**here**](https://github.com/aboood40091/CafeLoader-Project-Compiler/tree/cemu)
 
+# Important files
+
+files/source/init.cpp
+files/include/mk8/Deluxe/*.h
+
 # Restrictions
 
 C++03.
