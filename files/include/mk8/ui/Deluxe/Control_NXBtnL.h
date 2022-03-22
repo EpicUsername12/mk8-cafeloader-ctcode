@@ -30,13 +30,14 @@ class Control_NXBtnL : public UIControl {
     }
 
     virtual void onCreate() {
+
         this->mInputKey.requiredInput = MK8_INPUT_L;
-        this->pushInput(this->mInputKey);
+        this->ownerPage->pushInput(this->mInputKey);
 
         UIAnimator* BtnIconAnimator = this->createAnimator(0, 1);
         BtnIconAnimator->bind(0, "BtnIconPtn");
 
-        (*this->animators.get(0))->stop(0, (float)this->mType);
+        this->animators[0]->stop(0, (float)this->mType);
     }
 
     virtual void onIn() {

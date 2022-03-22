@@ -26,11 +26,21 @@ class UIAnimation {
 class UIAnimator {
   public:
     UIControl* control;
-    int field_04;
-    sead::Buffer<UIAnimation*> animations;
+    int currentAnimIdx;
+    sead::Buffer<UIAnimation> animations;
 
     void bind(int index, sead::SafeStringBase<char> const& name);
-    void stop(int unk, float frame);
+    void play_(int index);
+    void play(int index, float frame);
+    void stop(int index, float frame);
+
+    float getFrame() const;
+    float getMaxFrame() const;
+
+    bool isEnd(int index) const;
+
+    float getSpeed() const;
+    void setSpeed(int index, float speed, bool unk);
 };
 
 } // namespace ui

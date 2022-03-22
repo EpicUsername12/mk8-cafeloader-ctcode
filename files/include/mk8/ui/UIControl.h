@@ -76,7 +76,9 @@ class UIControl {
     virtual void unk2() {
     }
     virtual void onFollowCursor(void* Page_Cursor, int);
-    virtual void onVisibleCursor();
+    virtual bool onVisibleCursor() const {
+        return 1;
+    }
     virtual void onDrawDummy(void* UIDrawInfo) {
     }
     virtual void onHandler(ui::UIEvent const& event) {

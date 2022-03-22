@@ -152,7 +152,6 @@ SECTIONS {
     setMessage__Q2_2ui9UIControlFi = 0x02536428;
     __ct__Q2_2ui9UIControlFv = 0x02535A44;
     onFollowCursor__Q2_2ui9UIControlFPvi = 0x02535FB8;
-    onVisibleCursor__Q2_2ui9UIControlFv = 0x025366AC;
     pushInput__Q2_2ui9UIControlFRQ2_2ui7UIInput = 0x02536114;
     createAnimator__Q2_2ui9UIControlFiT1 = 0x025360B8;
 
@@ -162,6 +161,27 @@ SECTIONS {
     onHandler__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02578ADC;
     __ct__Q2_2ui14Control_ButtonFv = 0x02578630;
     __ct__Q2_2ui12UICapTextureFv = 0x025341AC;
+    getSLinkName__Q2_2ui14Control_ButtonFPQ2_4sead33FixedSafeString__tm__10_XCiL_2_64 = 0x02578B7C;
+    __CPR113__getSLinkSeName__Q2_2ui14Control_ButtonFQ3_2uiJ22J7ESeTypePQ2_4sead33FixedSafeString__tm__10_XCiL_2_32 = 0x02578C14;
+    __CPR63__startSe___Q2_2ui14Control_ButtonFQ3_2uiJ16J7ESeType = 0x02578EE8;
+    selectOn__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02578C14;
+    selectOff__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02578F90;
+    decide__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02579014;
+    unk3__Q2_2ui14Control_ButtonFv = 0x02A86E18;
+    cancel__Q2_2ui14Control_ButtonFi = 0x025790EC;
+    unk4__Q2_2ui14Control_ButtonFv = 0x02580BE8;
+    unk5__Q2_2ui14Control_ButtonFv = 0x02580BF0;
+    unk6__Q2_2ui14Control_ButtonFv = 0x02A86E18;
+    unk7__Q2_2ui14Control_ButtonFv = 0x02A86E18;
+    unk8__Q2_2ui14Control_ButtonFv = 0x02A86E18;
+    unk9__Q2_2ui14Control_ButtonFv = 0x02A86E18;
+    animOn__Q2_2ui14Control_ButtonFv = 0x02579170;
+    animOff__Q2_2ui14Control_ButtonFv = 0x02579260;
+    animKeepOn__Q2_2ui14Control_ButtonFv = 0x02579350;
+    animKeepOff__Q2_2ui14Control_ButtonFv = 0x025793E8;
+    animDecide__Q2_2ui14Control_ButtonFv = 0x02579490;
+    animCancel__Q2_2ui14Control_ButtonFv = 0x02579534;
+    __dt__Q2_2ui14Control_ButtonFv = 0x02578534;
 
     /* ui::Control_WifiCmnButton */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui21Control_WifiCmnButtonSFv = 0x101B2B68;
@@ -188,11 +208,15 @@ SECTIONS {
     /* ui::UIAnimator */
     bind__Q2_2ui10UIAnimatorFiRCQ2_4sead23SafeStringBase__tm__2_c = 0x025307DC;
     stop__Q2_2ui10UIAnimatorFif = 0x02530B5C;
+    play___Q2_2ui10UIAnimatorFi = 0x0253098C;
+    isEnd__Q2_2ui10UIAnimatorCFi = 0x02530FCC;
+    setSpeed__Q2_2ui10UIAnimatorFifb = 0x025309F4;
 
     /* ui::Page_CourseBase */
     LoadPanes__Q2_2ui15Page_CourseBaseFPQ2_2ui9UIControlb = 0x025B9680;
     LoadAnimations__Q2_2ui15Page_CourseBaseFPQ2_2ui9UIControl = 0x025B94B4;
     initialize__Q2_2ui15Page_CourseBaseFv = 0x025B9B44;
+    onCalc__Q2_2ui15Page_CourseBaseFv = 0x025BAC38;
 
     /* ui::Page_CourseGP */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseGP = 0x101B29AC;
@@ -219,6 +243,9 @@ SECTIONS {
     loadTimeControl___Q2_2ui9Page_RaceFi = 0x02640B48;
     onCalc__Q2_2ui9Page_RaceFv = 0x02642ABC;
     bindWindowLayout___Q2_2ui9Page_RaceFPQ2_2ui9UIControlPQ2_2ui10RaceWindow = 0x0263FFC8;
+
+    /* ui::Page_Bg */
+    onCreate__Q2_2ui7Page_BgFv = 0x025E4780;
 
     /* ui::UIHeap */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui6UIHeapSFv = 0x101AB20C;

@@ -43,7 +43,26 @@ static char* sExtendedCupList[] = { "L_CupIcon_12", "L_CupIcon_13", "L_CupIcon_1
 
 ui::Control_NXBtnL* L_Btn = nullptr;
 ui::Control_NXBtnR* R_Btn = nullptr;
+ui::Input_Key* X_Btn = nullptr;
+bool sIsInChargerPageAnim = false;
+bool sChargerCups = false;
+
 extern "C" void Page_CourseBase_LoadPanes(ui::Page_CourseBase* _this, ui::UIControl* mainControl, bool r5) {
+
+    /* Patch save file */
+    sys::SaveDataManager* saveDataMgr = sys::SystemEngine::getEngine()->mSaveDataMgr;
+    void* saveDataPtr = saveDataMgr->getRealUserSaveDataPtr(nn_act_GetSlotNo());
+
+    /* Unlock all 8 base cups */
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A28) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A29) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2A) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2B) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2C) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2D) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2E) = 3;
+    *saveDataMgr->calculateFlagPtrFromOffset(saveDataPtr, 0x1A2F) = 3;
+
     _this->LoadPanes(mainControl, r5);
 
     if (_this->pageID == ui::Page_CourseVS::ID) {
@@ -57,6 +76,9 @@ extern "C" void Page_CourseBase_LoadPanes(ui::Page_CourseBase* _this, ui::UICont
         R_Btn = new ui::Control_NXBtnR(ui::Control_NXBtnR::TEXTURE_R);
         _this->createControl_(L_Btn, mainControl, "L_LBtn_00");
         _this->createControl_(R_Btn, mainControl, "L_RBtn_00");
+        X_Btn = new ui::Input_Key();
+        X_Btn->requiredInput = MK8_INPUT_PLUS;
+        _this->pushInput(*X_Btn);
     }
 
     nw::lyt::Pane* p1 = mainControl->findPane("L_LBtn_00");
@@ -89,26 +111,121 @@ extern "C" void Page_CourseBase_LoadAnimations(ui::Page_CourseBase* _this, ui::U
     LR_Btn->bind(0, "LBtnDown");
     LR_Btn->bind(1, "RBtnDown");
 
-    (*_this->animators.get(7))->stop(0, 1.0f);
+    _this->animators[7]->stop(0, 1.0f); // ChangeIconVisible
 }
+
+// clang-format off
+// Also yes, this is how nintendo does it.
+static const int sCupRealIDs[12] = {
+    0, 1, 2, 3, 8, 10,
+    4, 5, 6, 7, 9, 11,
+};
+// clang-format on
 
 // sub_25B9B44
 extern "C" void hook_Page_CourseBase_initialize(ui::Page_CourseBase* _this) {
 
     _this->initialize();
 
-    // clang-format off
-    static const int sCupRealIDs[12] = {
-        0, 1, 2, 3, 8, 10,
-        4, 5, 6, 7, 9, 11,
-    };
-    // clang-format on
-
     for (int i = 0; i < 12; i++) {
-        (*_this->cupIcons[i]->animators.get(2))->stop(0, sCupRealIDs[i]);
+        _this->cupIcons[i]->animators[2]->stop(0, sCupRealIDs[i]); // IconChange
     }
     for (int i = 0; i < 6; i++) {
-        (*cupButtons[i]->animators.get(2))->stop(0, i + 12);
+        cupButtons[i]->animators[2]->stop(0, i + 12); // IconChange
+    }
+}
+
+extern "C" void hook_Page_Bg_onCreate(ui::Page_Bg* _this) {
+
+    _this->onCreate();
+    ui::UIAnimator* BgColor = _this->createAnimator(6, _this->mMainControl, 1);
+    BgColor->bind(0, "BgColor");
+}
+
+extern "C" void hook_Page_CourseVS_onHandler(ui::Page_CourseVS* _this, ui::UIEvent& event) {
+
+    if (sChargerCups) {
+        for (int i = 0; i < 12; i++) {
+            if (event.cursor_event.sourceControl == _this->cupIcons[i]) {
+                _this->animators[3]->stop(0, (float)i);
+            }
+        }
+    }
+
+    if (sIsInChargerPageAnim) {
+        return;
+    }
+
+    _this->onHandler(event);
+
+    if (event.m_InputValue == MK8_INPUT_L) {
+        _this->animators[10]->play_(0); // LBtnDown
+        _this->animators[6]->play_(1);  // CupOut
+        if (sChargerCups) {
+            _this->animators[8]->play_(1); // BGBoardChangeBtoW
+            ui::Page_Bg::getPage()->animators[6]->setSpeed(0, -1.0f, false);
+            ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+        } else {
+            ui::Page_Bg::getPage()->animators[6]->setSpeed(0, 1.0f, false);
+            ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+            _this->animators[8]->play_(0);                  // BGBoardChangeWtoB
+        }
+        sIsInChargerPageAnim = true;
+    } else if (event.m_InputValue == MK8_INPUT_R) {
+        _this->animators[10]->play_(1); // RBtnDown
+        _this->animators[6]->play_(1);  // CupOut
+        if (sChargerCups) {
+            _this->animators[8]->play_(1); // BGBoardChangeBtoW
+            ui::Page_Bg::getPage()->animators[6]->setSpeed(0, -1.0f, false);
+            ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+        } else {
+            ui::Page_Bg::getPage()->animators[6]->setSpeed(0, 1.0f, false);
+            ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+            _this->animators[8]->play_(0);                  // BGBoardChangeWtoB
+        }
+        sIsInChargerPageAnim = true;
+    }
+}
+
+extern "C" void hook_Page_CourseVS_onCalc(ui::Page_CourseBase* _this) {
+
+    _this->onCalc();
+
+    if (_this->pageID == ui::Page_CourseVS::ID) {
+        if (sIsInChargerPageAnim) {
+
+            // If CupOut done, and CupIn ready, do CupIn
+            if (_this->animators[6]->isEnd(1)) {
+
+                if (!sChargerCups) {
+                    for (int i = 0; i < 12; i++) {
+                        _this->cupIcons[i]->animators[2]->stop(0, 12 + i); // IconChange
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        cupButtons[i]->animators[2]->stop(0, sCupRealIDs[i]); // IconChange
+                    }
+                    sChargerCups = true;
+                } else {
+                    for (int i = 0; i < 12; i++) {
+                        _this->cupIcons[i]->animators[2]->stop(0, sCupRealIDs[i]); // IconChange
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        cupButtons[i]->animators[2]->stop(0, 12 + i); // IconChange
+                    }
+                    sChargerCups = false;
+                }
+
+                // Change bg color.
+                _this->animators[6]->play_(0);
+                LOG("Cup out done, doing cup in\n");
+            }
+
+            // If CupOut done and CupIn done, we're done.
+            if (_this->animators[6]->isEnd(0)) {
+                LOG("Cup out done, cup in done too\n");
+                sIsInChargerPageAnim = false;
+            }
+        }
     }
 }
 

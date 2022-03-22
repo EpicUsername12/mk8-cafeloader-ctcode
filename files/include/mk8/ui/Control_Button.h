@@ -31,17 +31,21 @@ class Control_Button : public UIControl, public sead::IDisposer {
     Control_Button();
 
     virtual void onCreate();
-    virtual void unk1();
+    virtual void unk1() {
+    }
     virtual void onIn();
     virtual void onCalc();
-    virtual void unk2();
+    virtual void unk2() {
+    }
 
-    virtual void onDrawDummy(void* UIDrawInfo);
+    virtual void onDrawDummy(void* UIDrawInfo) {
+    }
     virtual void onHandler(ui::UIEvent const& event);
 
-    virtual ~Control_Button() = 0;
+    virtual ~Control_Button();
     virtual void getSLinkName(sead::FixedSafeString<64>*);
     virtual void getSLinkSeName(ESeType, sead::FixedSafeString<32>*);
+    virtual void startSe_(ESeType);
     virtual void selectOn(ui::UIEvent const&);
     virtual void selectOff(ui::UIEvent const&);
     virtual void decide(ui::UIEvent const&);

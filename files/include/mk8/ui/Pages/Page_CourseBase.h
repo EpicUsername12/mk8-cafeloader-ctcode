@@ -41,6 +41,7 @@ class Page_CourseBase : public UIPage {
     void LoadPanes(UIControl* mainControl, bool unk);
     void LoadAnimations(UIControl* mainControl);
     void initialize();
+    void onCalc();
 };
 } // namespace ui
 
