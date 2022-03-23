@@ -204,6 +204,8 @@ SECTIONS {
     pushInput__Q2_2ui6UIPageFRQ2_2ui7UIInput = 0x0253F460;
     loadControl___Q2_2ui6UIPageFPQ2_2ui9UIControliRCQ2_4sead23SafeStringBase__tm__2_c = 0x0253E8C8;
     createAnimator__Q2_2ui6UIPageFiPQ2_2ui9UIControlT1 = 0x0253EA24;
+    toExit__Q2_2ui6UIPageFv = 0x0253EC28;
+    toIn__Q2_2ui6UIPageFPQ2_2ui6UIFlow = 0x0253EFB4;
 
     /* ui::UIAnimator */
     bind__Q2_2ui10UIAnimatorFiRCQ2_4sead23SafeStringBase__tm__2_c = 0x025307DC;
@@ -226,7 +228,8 @@ SECTIONS {
     /* ui::Page_CourseVS */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B29AC;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B2F24;
-    onHandler__Q2_2ui13Page_CourseVSFRQ2_2ui7UIEvent = 0x025BC24C;   
+    onHandler__Q2_2ui13Page_CourseVSFRQ2_2ui7UIEvent = 0x025BC24C;
+    toOut__Q2_2ui13Page_CourseVSFv = 0x025BAF9C;
 
     /* ui::Page_CourseWiFi */
     onCreate__Q2_2ui15Page_CourseWiFiFv = 0x025FD934;

@@ -82,6 +82,12 @@ Hooks:
   - type: funcptr
     addr: 100DCD60
     func: hook_Page_CourseVS_onCalc
+  - type: funcptr
+    addr: 100DCDB0
+    func: hook_Page_CourseVS_toIn
+  - type: funcptr
+    addr: 100DCD50
+    func: hook_Page_CourseVS_toOut
   - type: funcptr 
     addr: 100E07EC
     func: hook_Page_Bg_onCreate

@@ -24,6 +24,7 @@ class Page_CourseVS : public Page_CourseBase {
     }
 
     int onHandler(ui::UIEvent& event);
+    void toOut();
 };
 } // namespace ui
 

@@ -89,6 +89,8 @@ class UIPage {
 
     void toPrepare(UIFlow* flow);
 
+    void toExit();
+
     void toIn(UIFlow* flow);
 
     void toOut();

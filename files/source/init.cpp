@@ -142,6 +142,31 @@ extern "C" void hook_Page_Bg_onCreate(ui::Page_Bg* _this) {
     BgColor->bind(0, "BgColor");
 }
 
+extern "C" void hook_Page_CourseVS_toOut(ui::Page_CourseVS* _this) {
+    _this->toOut();
+
+    if (sChargerCups) {
+        ui::Page_Bg::getPage()->animators[6]->setSpeed(0, -1.0f, false);
+        ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+    }
+}
+
+extern "C" void hook_Page_CourseVS_toIn(ui::Page_CourseVS* _this, ui::UIFlow* flow) {
+    _this->toIn(flow);
+
+    if (sChargerCups) {
+        ui::Page_Bg::getPage()->animators[6]->setSpeed(0, 1.0f, false);
+        ui::Page_Bg::getPage()->animators[6]->play_(0); // BgColor
+
+        for (int i = 0; i < 12; i++) {
+            _this->cupIcons[i]->animators[2]->stop(0, 12 + i); // IconChange
+        }
+        for (int i = 0; i < 6; i++) {
+            cupButtons[i]->animators[2]->stop(0, sCupRealIDs[i]); // IconChange
+        }
+    }
+}
+
 extern "C" void hook_Page_CourseVS_onHandler(ui::Page_CourseVS* _this, ui::UIEvent& event) {
 
     if (sIsInChargerPageAnim) {
