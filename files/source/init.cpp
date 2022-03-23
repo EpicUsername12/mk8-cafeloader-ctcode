@@ -144,19 +144,19 @@ extern "C" void hook_Page_Bg_onCreate(ui::Page_Bg* _this) {
 
 extern "C" void hook_Page_CourseVS_onHandler(ui::Page_CourseVS* _this, ui::UIEvent& event) {
 
-    if (sChargerCups) {
-        for (int i = 0; i < 12; i++) {
-            if (event.cursor_event.sourceControl == _this->cupIcons[i]) {
-                _this->animators[3]->stop(0, (float)i);
-            }
-        }
-    }
-
     if (sIsInChargerPageAnim) {
         return;
     }
 
     _this->onHandler(event);
+
+    if (sChargerCups) {
+        for (int i = 0; i < 12; i++) {
+            if (event.cursor_event.sourceControl == _this->cupIcons[i]) {
+                _this->animators[3]->stop(0, i + 12.0f); // CupIconLineChange_00
+            }
+        }
+    }
 
     if (event.m_InputValue == MK8_INPUT_L) {
         _this->animators[10]->play_(0); // LBtnDown
