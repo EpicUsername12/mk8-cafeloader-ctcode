@@ -17,3 +17,9 @@
 
 #define NEW_MALLOC(TYPE, ARGS...) (new ((TYPE*)MEMAllocFromDefaultHeapEx(sizeof(TYPE), 4)) TYPE(##ARGS))
 #define NEW_MALLOC_ARR(TYPE, N, ARGS...) (new ((TYPE*)MEMAllocFromDefaultHeapEx(sizeof(TYPE) * N, 4)) TYPE[N](##ARGS))
+
+#ifdef Cemu
+#define CONSOLE_ID "[CEMU]"
+#else
+#define CONSOLE_ID "[WiiU]"
+#endif

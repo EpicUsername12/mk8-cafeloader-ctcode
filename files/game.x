@@ -41,13 +41,12 @@ SECTIONS {
     tryCreate__Q2_4sead7ExpHeapSFPvUiRCQ2_4sead23SafeStringBase__tm__2_cb = 0x0273A260;
 
     /* MK8 globals */
-    gCupPaneNames = 0x100DC77C;
-    gCupNames__Q2_2ui4ECup = 0x100D3E84;
+    gCupPaneNames__2ui= 0x100DC77C;
+    sCupNameIDs__2ui  = 0x100D3E84;
     gTrackPaths = 0x101ab678;
 
     /* nw::lyt functions */
     LoadTexture__Q2_2nw3lytFPQ3_2nw3lyt11TextureInfoPCvUi = 0x026A0F04;
-    setVisible__Q3_2nw3lyt4PaneFb = 0x0;
     s_pAllocator__Q3_2nw3lyt6Layout = 0x1018C150;
 
     /* net::NetworkEngine */
@@ -112,6 +111,10 @@ SECTIONS {
     /* nw::lyt::MultiArcResourceAccessor */
     GetResource__Q3_2nw3lyt24MultiArcResourceAccessorFUiPCcPUi = 0x02694B70;
 
+    /* nw::lyt::ArcExtractor */
+    ConvertPathToEntryID__Q3_2nw3lyt12ArcExtractorFPCc = 0x0269508C;
+    __CPR77__GetResourceSub__Q3_2nw3lyt12ArcExtractorSFPQ3_2nw3lytJ26JPCcUiT2PUi = 0x02694850;
+
     /* sead::FileDevice */
     __CPR122__tryOpen__Q2_4sead10FileDeviceFPQ2_J12J10FileHandleRCQ2_J12J23SafeStringBase__tm__2_cQ3_J12JJ17J12FileOpenFlagUi = 0x02728470;
     tryGetFileSize__Q2_4sead10FileDeviceFPUiPQ2_4sead10FileHandle = 0x027288F0;
@@ -159,6 +162,7 @@ SECTIONS {
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui14Control_ButtonSFv = 0x101B2B3C;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui14Control_ButtonSFv = 0x101B2B40;
     onHandler__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02578ADC;
+    onHandlerImpl__Q2_2ui14Control_ButtonFRCQ2_2ui7UIEvent = 0x02578ADC;
     __ct__Q2_2ui14Control_ButtonFv = 0x02578630;
     __ct__Q2_2ui12UICapTextureFv = 0x025341AC;
     getSLinkName__Q2_2ui14Control_ButtonFPQ2_4sead33FixedSafeString__tm__10_XCiL_2_64 = 0x02578B7C;
@@ -191,11 +195,13 @@ SECTIONS {
 
     /* ui::Control_CourseButton */
     __ct__Q2_2ui20Control_CourseButtonFb = 0x0257D8C4;
-
+    setCourse__Q2_2ui20Control_CourseButtonFRCQ2_2ui10CourseInfoPQ2_2ui12UICapTexture = 0x0257DC88;
 
     /* ui::Control_CupButton */
     __ct__Q2_2ui17Control_CupButtonFb = 0x0257CDF8;
 
+    /* ui::CourseTex */
+    getTex__Q2_2ui11UICourseTexCFQ2_4mush9ECourseID = 0x0255C534;
 
     /* ui::UIPage */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui6UIPageSFv = 0x101AB210;
@@ -206,6 +212,7 @@ SECTIONS {
     createAnimator__Q2_2ui6UIPageFiPQ2_2ui9UIControlT1 = 0x0253EA24;
     toExit__Q2_2ui6UIPageFv = 0x0253EC28;
     toIn__Q2_2ui6UIPageFPQ2_2ui6UIFlow = 0x0253EFB4;
+    toOut__Q2_2ui6UIPageFv = 0x0253EB34;
 
     /* ui::UIAnimator */
     bind__Q2_2ui10UIAnimatorFiRCQ2_4sead23SafeStringBase__tm__2_c = 0x025307DC;
@@ -213,6 +220,10 @@ SECTIONS {
     play___Q2_2ui10UIAnimatorFi = 0x0253098C;
     isEnd__Q2_2ui10UIAnimatorCFi = 0x02530FCC;
     setSpeed__Q2_2ui10UIAnimatorFifb = 0x025309F4;
+
+    /* ui::Page_CourseBattle */
+    onHandler__Q2_2ui17Page_CourseBattleFRQ2_2ui7UIEvent = 0x025BD0E0;
+    onCreate__Q2_2ui17Page_CourseBattleFv = 0x025BC8D8;
 
     /* ui::Page_CourseBase */
     LoadPanes__Q2_2ui15Page_CourseBaseFPQ2_2ui9UIControlb = 0x025B9680;
@@ -224,12 +235,14 @@ SECTIONS {
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseGP = 0x101B29AC;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseGP = 0x101B2F24;
     onHandler__Q2_2ui13Page_CourseGPFRQ2_2ui7UIEvent = 0x025BBD18;
+    onCreate__Q2_2ui13Page_CourseGPFv = 0x025BBA6C;
 
     /* ui::Page_CourseVS */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B29AC;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B2F24;
     onHandler__Q2_2ui13Page_CourseVSFRQ2_2ui7UIEvent = 0x025BC24C;
-    toOut__Q2_2ui13Page_CourseVSFv = 0x025BAF9C;
+    toOut__Q2_2ui15Page_CourseBaseFv = 0x025BAF9C;
+    onCreate__Q2_2ui13Page_CourseVSFv = 0x025BBE68;
 
     /* ui::Page_CourseWiFi */
     onCreate__Q2_2ui15Page_CourseWiFiFv = 0x025FD934;
@@ -264,6 +277,7 @@ SECTIONS {
 
     /* ui::UICursor */
     next___Q2_2ui8UICursorFiT1Ui = 0x02537CE0;
+    selectOn__Q2_2ui8UICursorFiT1Uib = 0x02537F38;
 
     /* ui::UIFlow */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui6UIFlowSFv = 0x101AB204;

@@ -7,6 +7,8 @@
 #include <container/seadBuffer.h>
 #include <mk8/ui/UIThread.h>
 
+#include <mk8/mush/types.h>
+
 namespace ui {
 class UITexLoader {
   public:
@@ -52,6 +54,8 @@ class UICharaTex : public UITexLoader {
 class UICourseTex : public UITexLoader {
   public:
     sead::Buffer<void*> buffer0;
+
+    nw::lyt::TextureInfo* getTex(mush::ECourseID id) const;
 };
 
 class UICompeTex {

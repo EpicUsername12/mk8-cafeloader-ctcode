@@ -63,6 +63,8 @@ class UICursor {
 
     int next_(int r4, int r5, uint32_t input);
 
+    int selectOn(int, int, unsigned int, bool);
+
     virtual void doVtable() {
     }
 };

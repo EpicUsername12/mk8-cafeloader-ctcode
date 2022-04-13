@@ -36,6 +36,20 @@ class EGrandPrixID {
     }
 };
 
+class ECourseID {
+
+    int id;
+
+  public:
+    ECourseID(int id) {
+        this->id = id;
+    }
+
+    inline int operator*() {
+        return this->id;
+    }
+};
+
 } // namespace mush
 
 #endif

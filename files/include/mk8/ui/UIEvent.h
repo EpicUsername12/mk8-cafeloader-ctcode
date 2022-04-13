@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #include <mk8/ui/UIPage.h>
+#include <mk8/ui/UICursor.h>
 
 namespace ui {
 
@@ -24,7 +25,7 @@ class CursorEvent {
     int field_04;
     UIControl* sourceControl;
     int controlId;
-    int field_10;
+    UICursor* cursor;
     int unk;
 };
 
@@ -35,7 +36,7 @@ class UIEvent {
         CursorEvent cursor_event;
     };
 
-    int field_18;
+    int playerIdx;
     int m_InputValue;
     int field_20;
 };

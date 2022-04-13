@@ -4,3 +4,9 @@ Name: CTGP-Cafe
 Include: ../files/include/sead
 Modules:
   - init.yaml
+  - resource_ext.yaml
+  - course_ext.yaml
+  - message.yaml
+  - speedometer.yaml
+  - online.yaml
+  - battle_ext.yaml

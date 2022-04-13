@@ -9,11 +9,43 @@ typedef class ResourceAccessor ResourceAccessor;
 } // namespace nw
 
 #include <mk8/ui/UILoader.h>
+#include <container/seadBuffer.h>
 
 struct NewLinkedList {
     int size;
     void* mPrev;
     void* mNext;
+};
+
+struct SARC_Header {
+    uint32_t magic; // 'SARC'
+    uint16_t header_len;
+    uint16_t bom;
+    uint32_t file_size;
+    uint32_t data_offset;
+    uint16_t version;
+    uint16_t reserved;
+};
+
+struct SFAT_Entry {
+    uint32_t hash;
+    uint32_t flags : 8, name_offset : 24;
+    uint32_t file_start;
+    uint32_t file_end;
+};
+
+struct SFAT_Header {
+    uint32_t magic; // 'SFAT'
+    uint16_t header_len;
+    uint16_t node_count;
+    uint32_t hash_key;
+    SFAT_Entry entries[];
+};
+
+struct Yaz0_Header {
+    uint32_t magic; // 'Yaz0'
+    uint32_t uncompressed_size;
+    uint32_t reserved[2];
 };
 
 namespace nw {
@@ -36,6 +68,24 @@ class ResourceAccessor {
     nw::lyt::MultiArcResourceAccessor mArcRA;
     ui::UILoader* loader; // wtf
 };
+
+class ArcExtractor {
+
+  public:
+    SARC_Header* mArchiveHeader;
+    SFAT_Header* mSFATHeader;
+    const char* mFNTData;
+    sead::Buffer<SFAT_Entry> mEntries;
+    uint8_t* mDataBlock;
+    bool mIsLittleEndian;
+
+    ArcExtractor();
+
+    uint32_t ConvertPathToEntryID(const char* path);
+
+    static void* GetResourceSub(nw::lyt::ArcExtractor*, char const*, uint32_t, char const*, size_t*);
+};
+
 } // namespace lyt
 } // namespace nw
 

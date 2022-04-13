@@ -14,6 +14,11 @@
 #include <mk8/ui/UIPage.h>
 
 namespace ui {
+
+extern const int sCupNameIDs[];
+extern const int sCupRealIDs[];
+extern const char* gCupPaneNames[];
+
 class Page_CourseBase : public UIPage {
   public:
     Flow_Open flowOpen0;
@@ -42,6 +47,7 @@ class Page_CourseBase : public UIPage {
     void LoadAnimations(UIControl* mainControl);
     void initialize();
     void onCalc();
+    void toOut();
 };
 } // namespace ui
 

@@ -1,0 +1,98 @@
+---
+Files:
+  - source/course_ext.cpp
+Hooks:
+  # Increase Page_CourseGP class allocated size
+  - type: patch
+    addr: 0254D938
+    data: 38 60 03 00 # li r3, 0x2CC -> li r3, 0x300
+  # Increase Page_CourseVS class allocated size
+  - type: patch
+    addr: 0254D99C
+    data: 38 60 03 90 # li r3, 0x35C -> li r3, 0x390
+  # Increase Page_CourseWiFi class allocated size
+  - type: patch
+    addr: 0254E014
+    data: 38 60 04 40 # li r3, 0x40C -> li r3, 0x440
+
+  # Increase Page_CourseBase anim count
+  - type: patch
+    addr: 025B9480
+    data: 38 00 00 0B # li r0, 6 -> li r0, 11
+  # Increase Page_Bg anim count
+  - type: patch
+    addr: 025E4750
+    data: 38 00 00 07 # li r0, 6 -> li r0, 7
+
+  # Hook Page_Bg onCreate
+  - type: funcptr 
+    addr: 100E07EC
+    func: hook_Page_Bg_onCreate
+
+
+  - type: branch
+    instr: bl
+    addr: 025BA1C4
+    func: hook_Page_CourseBase_initialize
+  - type: branch
+    instr: bl
+    addr: 025BB758
+    func: hook_Page_CourseBase_initialize
+
+  - type: funcptr
+    addr: 100DCC20
+    func: hook_ui_Page_CourseGP_onCreate
+  - type: funcptr
+    addr: 100DCD20
+    func: hook_ui_Page_CourseVS_onCreate
+  - type: funcptr
+    addr: 100E2990
+    func: hook_ui_Page_CourseWiFi_onCreate
+
+  - type: funcptr
+    addr: 100DCCC0
+    func: hook_Page_CourseGP_onHandler
+  - type: funcptr
+    addr: 100DCDC0
+    func: hook_Page_CourseVS_onHandler
+  - type: funcptr
+    addr: 100E2A30
+    func: hook_Page_CourseWiFi_onHandler
+
+  # onCalc hooks
+  - type: funcptr
+    addr: 100DCC60
+    func: hook_ui_Page_CourseGP_onCalc
+  - type: funcptr
+    addr: 100DCD60
+    func: hook_ui_Page_CourseVS_onCalc
+  - type: funcptr
+    addr: 100E29D0
+    func: hook_ui_Page_CourseWiFi_onCalc
+
+
+  # toOut hooks
+  - type: funcptr
+    addr: 100DCC50
+    func: hook_Page_CourseGP_toOut
+  - type: funcptr
+    addr: 100DCD50
+    func: hook_Page_CourseVS_toOut
+  - type: funcptr
+    addr: 100E29C0
+    func: hook_Page_CourseWiFi_toOut
+
+  - type: funcptr
+    addr: 100E15A0
+    func: hook_Page_TopMenu_toIn
+
+  # toIn hooks
+  - type: funcptr
+    addr: 100DCCB0
+    func: hook_Page_CourseGP_toIn
+  - type: funcptr
+    addr: 100DCDB0
+    func: hook_Page_CourseVS_toIn
+  - type: funcptr
+    addr: 100E2A20
+    func: hook_Page_CourseWiFi_toIn

@@ -20,6 +20,7 @@ class Page_CourseGP : public Page_CourseBase {
     }
 
     int onHandler(ui::UIEvent& event);
+    void onCreate();
 };
 } // namespace ui
 

@@ -41,6 +41,7 @@ class Control_Button : public UIControl, public sead::IDisposer {
     virtual void onDrawDummy(void* UIDrawInfo) {
     }
     virtual void onHandler(ui::UIEvent const& event);
+    void onHandlerImpl(ui::UIEvent const& event);
 
     virtual ~Control_Button();
     virtual void getSLinkName(sead::FixedSafeString<64>*);
