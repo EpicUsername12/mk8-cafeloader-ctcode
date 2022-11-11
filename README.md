@@ -6,6 +6,8 @@ Using [**CafeLoader Project Compiler**](https://github.com/aboood40091/CafeLoade
 
 It can also compile for Cemu (it produces a new game RPX) [**here**](https://github.com/aboood40091/CafeLoader-Project-Compiler/tree/cemu)
 
+**NOTE**: CTGP is using a modified version of the CEMU compiler that fixes a section in the built RPX
+
 # Thanks to
 
 - aboood40091 for the insane help on setting up cafeloader compiler and information about C++ and SEAD etc..

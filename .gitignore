@@ -52,11 +52,6 @@ Mkfile.old
 dkms.conf
 
 # Other files
-addrconv.py
-addrconv_cemu.py
-elf.py
-compiler.py
-compiler_cemu.py
 __pycache__/*
 files/game_MK8_ALL_Latest.x
 files/game_MK8_ALL_Latest_Cemu.x
