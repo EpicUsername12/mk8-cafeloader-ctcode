@@ -1,7 +1,7 @@
 
 ---
 Name: CTGP-Cafe
-Include: ../files/include/sead
+Include: include/sead
 Modules:
   - init.yaml
   - resource_ext.yaml

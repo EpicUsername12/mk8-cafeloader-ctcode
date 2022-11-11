@@ -16,7 +16,7 @@ wiiurpxtool = 'wiiurpxtool.exe'
 TEMPLATE = """#!gbuild
 primaryTarget=ppc_cos_ndebug.tgt
 [Project]
-\t-object_dir=objs
+\t-object_dir=build/objs
 \t--no_commons
 \t-c99
 \t-only_explicit_reg_use
@@ -116,7 +116,7 @@ class Linker:
 class Module:
     def __init__(self, fn):
         self.name = os.path.splitext(fn)[0]
-        with open(fn) as f:
+        with open("patches/" + fn) as f:
             module = yaml.safe_load(f)
 
         self.codefiles = module.get('Files', [])
@@ -126,7 +126,7 @@ class Module:
         self.objfiles = []
         for codefile in self.codefiles:
             if codefile.endswith('.cpp'):
-                self.objfiles.append('objs/%s' %os.path.basename(os.path.splitext(codefile)[0]+'.o'))
+                self.objfiles.append('build/objs/%s' %os.path.basename(os.path.splitext(codefile)[0]+'.o'))
             if codefile.endswith('.S'):
                 self.buildAsm(codefile)
         return self.objfiles
@@ -134,13 +134,13 @@ class Module:
     def buildAsm(self, fn):
         print("Assembling '%s'" %fn)
         obj = os.path.basename(fn+'.o')
-        cmd = '"%s" -I ../files/include %s -o objs/%s' %(os.path.join(GHS_PATH, 'asppc'), fn, obj)
+        cmd = '"%s" -I include %s -o build/objs/%s' %(os.path.join(GHS_PATH, 'asppc'), fn, obj)
         error = subprocess.call(cmd)
         if error:
             print('Build failed!!')
             print('Error code: %i' %error)
             sys.exit(error)
-        self.objfiles.append('objs/%s' %obj)
+        self.objfiles.append('build/objs/%s' %obj)
 
     def getPatches(self):
         patchList = {}
@@ -190,8 +190,8 @@ class Project:
 
             return
 
-        if not os.path.isdir('objs'):
-            os.mkdir('objs')
+        if not os.path.isdir('build/objs'):
+            os.mkdir('build/objs')
 
         self.buildGPJ()
         self.buildGHS()
@@ -207,7 +207,7 @@ class Project:
             for fn in module.codefiles:
                 fileList += fn + '\n'
 
-        include = '../files/include'
+        include = 'include'
         if self.include:
             include += '\n\t-I%s' %self.include
 
@@ -266,16 +266,16 @@ class Project:
 
         ################################
 
-        symtable = '../files/game_%s.x' %addrconv.region
-        addrconv.convertTable('../files/game.x', symtable)
+        symtable = 'build/linker/game_%s.x' %addrconv.region
+        addrconv.convertTable('build/linker/game.x', symtable)
         
-        out = self.name + '.o'
+        out = "build/" + self.name + '.o'
         symfiles = '-T %s' %symtable
 
         textAddr = addrconv.symbols['textAddr']
         dataAddr = addrconv.symbols['dataAddr']
 
-        with open("project.ld", "w+") as symfile:
+        with open("build/project.ld", "w+") as symfile:
             symfile.write(SymTableTemplate % (
                 hex(textAddr),
                 hex(0x10000000 - textAddr),
@@ -283,7 +283,7 @@ class Project:
                 hex(0xC0000000 - dataAddr),
             ))
 
-        symfiles += ' -T project.ld'
+        symfiles += ' -T build/project.ld'
 
         syms = ''
         for sym, addr in addrconv.symbols.items():
@@ -312,14 +312,13 @@ def buildProject(proj):
         project = Project(yaml.safe_load(f))
 
     project.build()
-    os.chdir('..')
 
 def patchRpx(proj, rpx):
     print("Decompressing RPX...")
     elfName = '%s.elf' % os.path.splitext(rpx)[0]
     rpxName = rpx.replace("_ORIG", "")
 
-    elfName2 = os.path.join(proj, '%s.o' % project.name)
+    elfName2 = os.path.join(proj, 'build/%s.o' % project.name)
 
     DETACHED_PROCESS = 0x00000008
     subprocess.call('"%s" -d "%s" "%s"' % (wiiurpxtool, rpx, elfName), creationflags=DETACHED_PROCESS)
@@ -566,7 +565,8 @@ def main():
     linker = Linker()
     buildProject(sys.argv[1])
 
-    if not os.path.isfile(wiiurpxtool):
+    if not os.path.exists(wiiurpxtool):
+        print(os.getcwd())
         print("Could not locate wiiurpxtool.exe! Did you set its path?")
         return
 

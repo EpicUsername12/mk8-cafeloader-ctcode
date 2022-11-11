@@ -52,13 +52,12 @@ Mkfile.old
 dkms.conf
 
 # Other files
-__pycache__/*
-files/game_MK8_ALL_Latest.x
-files/game_MK8_ALL_Latest_Cemu.x
-files/project.ld
-files/project.gpj
-files/Out/*
-OutProj/*
+__pycache__
+game_*.x
+game_*.x
+project.ld
+project.gpj
+files
 *.elf
 *.rpx
 *.ti

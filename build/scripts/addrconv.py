@@ -40,7 +40,7 @@ def loadAddrFile(name):
     symbols.clear()
     del diffs[:]
 
-    with open('addr_%s.txt' %name) as f:
+    with open('build/linker/addr_%s.txt' %name) as f:
         parseAddrFile(f.readlines())
 
 def convert(address, fixWriteProtection=False):

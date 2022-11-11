@@ -14,7 +14,7 @@ GHS_PATH = 'C:/ghs/multi5327/'
 TEMPLATE = """#!gbuild
 primaryTarget=ppc_cos_ndebug.tgt
 [Project]
-\t-object_dir=objs
+\t-object_dir=build/objs
 \t--no_commons
 \t-c99
 \t-only_explicit_reg_use
@@ -110,7 +110,7 @@ class Linker:
 class Module:
     def __init__(self, fn):
         self.name = os.path.splitext(fn)[0]
-        with open(fn) as f:
+        with open("patches/" + fn) as f:
             module = yaml.safe_load(f)
 
         self.codefiles = module.get('Files', [])
@@ -120,7 +120,7 @@ class Module:
         self.objfiles = []
         for codefile in self.codefiles:
             if codefile.endswith('.cpp'):
-                self.objfiles.append('objs/%s' %os.path.basename(os.path.splitext(codefile)[0]+'.o'))
+                self.objfiles.append('build/objs/%s' %os.path.basename(os.path.splitext(codefile)[0]+'.o'))
             if codefile.endswith('.S'):
                 self.buildAsm(codefile)
         return self.objfiles
@@ -128,13 +128,13 @@ class Module:
     def buildAsm(self, fn):
         print("Assembling '%s'" %fn)
         obj = os.path.basename(fn+'.o')
-        cmd = '"%s" -I ../files/include %s -o objs/%s' %(os.path.join(GHS_PATH, 'asppc.exe'), fn, obj)
+        cmd = '"%s" -I include %s -o build/objs/%s' %(os.path.join(GHS_PATH, 'asppc.exe'), fn, obj)
         error = subprocess.call(cmd)
         if error:
             print('Build failed!!')
             print('Error code: %i' %error)
             sys.exit(error)
-        self.objfiles.append('objs/%s' %obj)
+        self.objfiles.append('build/objs/%s' %obj)
 
     def getPatches(self):
         patchList = {}
@@ -171,7 +171,7 @@ class Project:
         self.genHeader = proj.get('BuildHeader', False)
         self.include = proj.get('Include', None)
         self.name = proj['Name']
-        self.outdir = 'Out'
+        self.outdir = 'files'
         
         files = proj.get('Modules', [])
         self.modules = []
@@ -182,8 +182,8 @@ class Project:
         if not os.path.isdir(self.outdir):
             os.mkdir(self.outdir)
 
-        if not os.path.isdir('objs'):
-            os.mkdir('objs')
+        if not os.path.isdir('build/objs'):
+            os.mkdir('build/objs')
 
         self.buildGPJ()
         self.buildGHS()
@@ -213,12 +213,12 @@ class Project:
                 patchdata += rawaddress
                 patchdata += rawdata
 
-        with open('Out/Patches.hax', 'wb') as f:
+        with open('files/Patches.hax', 'wb') as f:
             f.write(patchdata)
 
     def setAddressBin(self):
         addrdata = struct.pack('>2I', addrconv.symbols['textAddr'], addrconv.symbols['dataAddr'])
-        with open('Out/Addr.bin', 'wb') as f:
+        with open('files/Addr.bin', 'wb') as f:
             f.write(addrdata)
 
     def buildGPJ(self):
@@ -227,7 +227,7 @@ class Project:
             for fn in module.codefiles:
                 fileList += fn + '\n'
 
-        include = '../files/include'
+        include = 'include'
         if self.include:
             include += '\n\t-I%s' %self.include
 
@@ -282,16 +282,17 @@ class Project:
 
         ################################
 
-        symtable = '../files/game_%s.x' %addrconv.region
-        addrconv.convertTable('../files/game.x', symtable)
+        symtable = 'build/linker/game_%s.x' %addrconv.region
+        print(os.getcwd())
+        addrconv.convertTable('build/linker/game.x', symtable)
         
-        out = self.name + '.o'
+        out = "build/" + self.name + '.o'
         symfiles = '-T %s' %symtable
 
         textAddr = addrconv.symbols['textAddr']
         dataAddr = addrconv.symbols['dataAddr']
 
-        with open("project.ld", "w+") as symfile:
+        with open("build/project.ld", "w+") as symfile:
             symfile.write(SymTableTemplate % (
                 hex(textAddr),
                 hex(0x10000000 - textAddr),
@@ -299,7 +300,7 @@ class Project:
                 hex(0xC0000000 - dataAddr),
             ))
 
-        symfiles += ' -T project.ld'
+        symfiles += ' -T build/project.ld'
 
         syms = ''
         for sym, addr in addrconv.symbols.items():
@@ -323,7 +324,7 @@ class Project:
             raise NotImplementedError
 
     def objcopy(self, sections, out):
-        obj = ELF("%s.o" %self.name)
+        obj = ELF("build/%s.o" %self.name)
 
         outBuffer = bytearray()
         for section in sections:
@@ -331,11 +332,11 @@ class Project:
             if sectionObj:
                 outBuffer += sectionObj.data
 
-        with open('Out/%s.bin' %out, 'wb') as f:
+        with open('files/%s.bin' %out, 'wb') as f:
             f.write(outBuffer)
 
     def buildHeader(self, binfile):
-        with open('Out/%s.bin' %binfile, 'rb') as f:
+        with open('files/%s.bin' %binfile, 'rb') as f:
             data = f.read()
 
         header = '\nstatic const unsigned char %s_bin[] = {\n ' %binfile
@@ -350,7 +351,7 @@ class Project:
         header += '\n};\nstatic const unsigned int %s_bin_len = ' %binfile
         header += str(len(data)) + ';\n'
         
-        with open('Out/%s.h' %binfile, 'w') as f:
+        with open('files/%s.h' %binfile, 'w') as f:
             f.write(header)
 
 def buildProject(proj):
@@ -359,16 +360,6 @@ def buildProject(proj):
         project = Project(yaml.safe_load(f))
 
     project.build()
-    os.chdir('..')
-
-def copyOutFiles():
-    if not os.path.isdir('OutProj'):
-        os.mkdir('OutProj')
-
-    shutil.copy(sys.argv[1]+'/Out/Addr.bin', 'OutProj/Addr.bin')
-    shutil.copy(sys.argv[1]+'/Out/Patches.hax', 'OutProj/Patches.hax')
-    shutil.copy(sys.argv[1]+'/Out/Code.bin', 'OutProj/Code.bin')
-    shutil.copy(sys.argv[1]+'/Out/Data.bin', 'OutProj/Data.bin')
 
 def main():
     if len(sys.argv) < 3:
@@ -384,8 +375,6 @@ def main():
     global linker
     linker = Linker()
     buildProject(sys.argv[1])
-
-    copyOutFiles()
 
 if __name__ == '__main__':
     main()
