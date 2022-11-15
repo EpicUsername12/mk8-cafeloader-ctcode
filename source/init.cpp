@@ -1,5 +1,4 @@
 #include "init.h"
-#include <dynamic_libs/aoc_functions.h>
 
 /* libgcc memcpy */
 void* memcpy(void* dest, const void* src, size_t len) {
@@ -34,4 +33,13 @@ extern "C" void call_ctors() {
     InitAocFunctionPointers();
 
     LOG("Hello from playground.\n");
+}
+
+#include <mk8/ui/Pages/Page_CourseBase.h>
+
+extern "C" void (*real_Page_CourseBase_initialize)(ui::Page_CourseBase* _this) = nullptr;
+extern "C" void hook_Page_CourseBase_initialize(ui::Page_CourseBase* _this) {
+
+    real_Page_CourseBase_initialize(_this);
+    LOG("Hello! This is some debug text omg 0x%08x\n", real_Page_CourseBase_initialize);
 }

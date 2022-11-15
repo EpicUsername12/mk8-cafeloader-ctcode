@@ -94,9 +94,12 @@ class Linker:
             if shndx in ['SHN_ABS', 'SHN_UNDEF']: continue
             
             section = sections[shndx]
-            if section.name != '.text': continue
+            if (section.name == '.text') or (section.name == '.data'):
+                self.symbols[symbol.name] = value
+            else:
+                continue
 
-            self.symbols[symbol.name] = value
+            
 
     def getSymbol(self, name):
         return self.symbols[name]
@@ -107,12 +110,23 @@ class Linker:
         instr |= 0x48000000
         return "%x" %instr
 
+    def doB_addr(self, dst, src):
+        instr = (dst - src) & 0x03FFFFFC
+        instr |= 0x48000000
+        return "%x" %instr
+
     def doBL(self, symbol, src):
         symaddr = self.getSymbol(symbol)
         instr = (symaddr - src) & 0x03FFFFFC
         instr |= 0x48000001
         return "%x" %instr
 
+    def doBL_addr(self, dst, src):
+        instr = (dst - src) & 0x03FFFFFC
+        instr |= 0x48000001
+        return "%x" %instr
+
+appendList = {}
 class Module:
     def __init__(self, fn):
         self.name = os.path.splitext(fn)[0]
@@ -142,7 +156,7 @@ class Module:
             sys.exit(error)
         self.objfiles.append('build/objs/%s' %obj)
 
-    def getPatches(self):
+    def getPatches(self, text_start=0):
         patchList = {}
         for hook in self.hooks:
             hooktype = hook['type']
@@ -169,6 +183,10 @@ class Module:
                 addr = addrconv.convert(addr)
                 patchList['%08x' %addr] = '%08x' %linker.getSymbol(hook['func'])
 
+            elif hooktype == 'hook':
+                addr = addrconv.convert(addr)
+                appendList['%08x' %addr] = ['%08x' %linker.getSymbol(hook['func']), '%08x' %linker.getSymbol(hook['real'])]
+                
         return patchList
 
 class Project:
@@ -343,8 +361,9 @@ def patchRpx(proj, rpx):
 
     patches = {}
     for module in project.modules:
-        patches.update(module.getPatches())
-
+        patch = module.getPatches()
+        patches.update(patch)
+    
     # TODO: relocations
     # Current Cemu version let's us get away
     # with not doing add relocations, but
@@ -483,9 +502,9 @@ def patchRpx(proj, rpx):
 
         oBss = elfObj.getSectionByName('.bss')
 
-        for address, data in patches.items():
+        for address, patch_data in patches.items():
             address = int(address, 16)
-            rawdata = bytes.fromhex(data)
+            rawdata = bytes.fromhex(patch_data)
 
             if oText.vAddr <= address < addrconv.symbols['textAddr']:
                 toPatch = oText
@@ -529,6 +548,46 @@ def patchRpx(proj, rpx):
             addr = address - toPatch.vAddr
             toPatch.data[addr:addr + len(rawdata)] = rawdata
             print("Patched %d bytes at %s" % (len(rawdata), hex(address)))
+
+        for address, patch_data in appendList.items():
+
+            addr = int(address, 16)
+            target_addr = int(patch_data[0], 16)
+            real_f_addr = int(patch_data[1], 16)
+
+            if oText.vAddr <= addr < addrconv.symbols['textAddr']:
+                print("Hooking 0x%08x -> 0x%08x" %(addr, target_addr))
+                
+                text_last_addr = text.vAddr + len(text.data)
+                real_text_offset = addr - oText.vAddr
+
+                old_inst = oText.data[real_text_offset:real_text_offset+4]
+                oText.data[real_text_offset:real_text_offset+4] = bytes.fromhex(linker.doB_addr(target_addr, addr))
+
+                """
+                stw r3, -0x20(r1)
+                lis r3, source+4@h
+                ori r3, r3, source+4@l
+                mtctr r3
+                lwz r3, -0x20(r1)
+                <base_func instruction>
+                bctr
+                """
+
+                text.data += bytes.fromhex('%08x'%(0x9061FFE0))
+                text.data += bytes.fromhex('%08x'%(0x3C600000 | (((addr+4) >> 16) & 0xFFFF))) 
+                text.data += bytes.fromhex('%08x'%(0x60630000 | ((addr+4) & 0xFFFF)))
+                text.data += bytes.fromhex('%08x'%(0x7C6903A6)) 
+                text.data += bytes.fromhex('%08x'%(0x8061FFE0)) 
+                text.data += old_inst
+                text.data += bytes.fromhex('%08x'%(0x4E800420))
+                
+                print("Replaced real addr @ 0x%08x"%(real_f_addr))
+                data_offset = real_f_addr - data.vAddr
+                data.data[data_offset:data_offset+4] = bytes.fromhex('%08x'%(text_last_addr))
+
+            else:
+                raise ValueError("'hook' patch addr must be a valid '.text' pointer")
 
     print("Saving ELF...")
     buf = elfObj.save()

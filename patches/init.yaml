@@ -6,7 +6,6 @@ Files:
   - source/dynamic_libs/nn_act_functions.cpp
   - source/dynamic_libs/aoc_functions.cpp
   - source/init.cpp
-  - source/CUP0.cpp
   - source/util/filesystem.cpp
 Hooks:
   # main() hook
@@ -14,3 +13,8 @@ Hooks:
     instr: bl
     addr: 02677548
     func: call_ctors
+
+  - type: hook
+    addr: 025B9B44
+    func: hook_Page_CourseBase_initialize
+    real: real_Page_CourseBase_initialize

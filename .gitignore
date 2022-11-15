@@ -61,5 +61,4 @@ files
 *.elf
 *.rpx
 *.ti
-.vscode/
 ctgp_files/

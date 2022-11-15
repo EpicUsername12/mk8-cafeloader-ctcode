@@ -1,7 +1,6 @@
 #ifndef _UTIL_FS_H
 #define _UTIL_FS_H
 
-#include "log.h"
 #include <filedevice/seadFileDeviceMgr.h>
 #include <heap/seadHeapMgr.h>
 
