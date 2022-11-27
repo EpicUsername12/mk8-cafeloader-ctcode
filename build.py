@@ -65,18 +65,3 @@ else:
 	print(BLUE + "Building for: " + RESET + "Console")
 
 	subprocess.call("python build/scripts/compiler.py . MK8_ALL_Latest")
-
-"""
-@echo off
-
-if exist files/Turbo_ORIG.rpx (
-	echo "whats good"
-) else (
-	echo [91mPlease fetch the .RPX of the v64 update of Mario Kart 8 and put it in the [92mfiles [91mfolder with the name [92mTurbo_ORIG.rpx[0m
-	if %~1 == "cemu" (
-		echo cemu
-	) else (
-		echo console
-	)
-)
-"""

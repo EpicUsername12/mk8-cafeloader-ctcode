@@ -1,34 +1,34 @@
 {
-    "configurations": [
-        {
-            "name": "WiiU",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "C:\\ghs\\multi5327\\include\\ppc",
-                "C:\\ghs\\multi5327\\ansi",
-                "C:\\ghs\\multi5327\\ecxx"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE",
-                "__ppc",
-                "_POSIX_SOURCE",
-                "cafe",
-                "EPPC",
-                "Cemu",
-                "__ghs__",
-                "__LONG_BIT=32",
-                "__INT_BIT=32",
-                "__SHRT_BIT=16",
-                "__CHAR_BIT=8",
-                "__LLONG_BIT=64"
-            ],
-            "compilerPath": "C:\\msys64\\opt\\devkitpro\\devkitPPC\\bin\\powerpc-eabi-gcc.exe",
-            "cStandard": "c99",
-            "cppStandard": "c++03",
-            "intelliSenseMode": "gcc-x86"
-        }
-    ],
-    "version": 4
+	"configurations": [
+		{
+			"name": "WiiU",
+			"includePath": [
+				"${workspaceFolder}/**",
+				"C:\\ghs\\multi5327\\include\\ppc",
+				"C:\\ghs\\multi5327\\ansi",
+				"C:\\ghs\\multi5327\\ecxx"
+			],
+			"defines": [
+				"_DEBUG",
+				"UNICODE",
+				"_UNICODE",
+				"__ppc",
+				"_POSIX_SOURCE",
+				"cafe",
+				"EPPC",
+				"Cemu",
+				"__ghs__",
+				"__LONG_BIT=32",
+				"__INT_BIT=32",
+				"__SHRT_BIT=16",
+				"__CHAR_BIT=8",
+				"__LLONG_BIT=64"
+			],
+			"compilerPath": "C:\\msys64\\opt\\devkitpro\\devkitPPC\\bin\\powerpc-eabi-gcc.exe",
+			"cStandard": "c99",
+			"cppStandard": "c++03",
+			"intelliSenseMode": "gcc-x86"
+		}
+	],
+	"version": 4
 }

@@ -5,13 +5,10 @@
 
 #include <types.h>
 
-#ifdef __VS_CODE__
-#include <stdint-gcc.h>
-#endif
-
 typedef u32 uintptr_t;
 typedef s32 intptr_t;
 
+#undef static_assert
 #ifndef static_assert
 
 // https://stackoverflow.com/a/1597129
@@ -21,7 +18,7 @@ typedef s32 intptr_t;
 #ifndef __VS_CODE__
 #define static_assert(condition, ...) typedef int TOKENPASTE2(static_assert_, __LINE__)[(condition) ? 1 : -1]
 #else
-#define static_assert(condition, ...)
+#define static_assert(condition, ...) ;
 #endif
 
 #endif // static_assert
