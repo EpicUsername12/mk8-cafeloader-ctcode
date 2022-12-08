@@ -10,6 +10,9 @@
 
 namespace enl {
 class TransportManager {
+
+    SEAD_RTTI_BASE(TransportManager)
+
   public:
     uint8_t array1size;
     uint8_t playerNum;
@@ -50,8 +53,6 @@ class TransportManager {
     bool isRequest(uint8_t const& contentId) const;
     ContentTransporterCommon* getContentTransporter(uint8_t const&);
 
-    virtual void unk0() = 0;
-    virtual void unk1() = 0;
     virtual void init();
     virtual void calcSend();
     virtual void calcReceive();
@@ -72,6 +73,9 @@ class TransportManager {
 };
 
 class PiaTransportManager : public TransportManager {
+
+    SEAD_RTTI_OVERRIDE(PiaTransportManager, TransportManager)
+
     int mUnreliableProtocolId;
     int mReliableProtocolId;
 };
