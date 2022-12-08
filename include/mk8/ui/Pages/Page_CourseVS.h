@@ -23,8 +23,8 @@ class Page_CourseVS : public Page_CourseBase {
         return (Page_CourseVS*)UIEngine::spInstance->pageManager->getPage(ID);
     }
 
-    int onHandler(ui::UIEvent& event);
-    void onCreate();
+    virtual void onHandler(ui::UIEvent const& event);
+    virtual void onCreate();
 };
 } // namespace ui
 

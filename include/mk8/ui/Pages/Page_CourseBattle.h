@@ -33,8 +33,8 @@ class Page_CourseBattle : public UIPage {
         return (Page_CourseBattle*)UIEngine::spInstance->pageManager->getPage(ID);
     }
 
-    void onCreate();
-    void onHandler(ui::UIEvent& event);
+    virtual void onCreate();
+    virtual void onHandler(ui::UIEvent const& event);
 };
 } // namespace ui
 

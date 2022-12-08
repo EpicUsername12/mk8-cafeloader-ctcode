@@ -204,15 +204,21 @@ SECTIONS {
     getTex__Q2_2ui11UICourseTexCFQ2_4mush9ECourseID = 0x0255C534;
 
     /* ui::UIPage */
+	__vtbl__Q2_2ui6UIPage = 0x100D0C8C;
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui6UIPageSFv = 0x101AB210;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui6UIPageSFv = 0x101B24E4;
-    createControl___Q2_2ui6UIPageFPQ2_2ui9UIControlT1RCQ2_4sead23SafeStringBase__tm__2_c = 0x0253E970;
+    __ct__Q2_2ui6UIPageFv = 0x0253DBB4;
+	createControl___Q2_2ui6UIPageFPQ2_2ui9UIControlT1RCQ2_4sead23SafeStringBase__tm__2_c = 0x0253E970;
     pushInput__Q2_2ui6UIPageFRQ2_2ui7UIInput = 0x0253F460;
     loadControl___Q2_2ui6UIPageFPQ2_2ui9UIControliRCQ2_4sead23SafeStringBase__tm__2_c = 0x0253E8C8;
     createAnimator__Q2_2ui6UIPageFiPQ2_2ui9UIControlT1 = 0x0253EA24;
     toExit__Q2_2ui6UIPageFv = 0x0253EC28;
     toIn__Q2_2ui6UIPageFPQ2_2ui6UIFlow = 0x0253EFB4;
     toOut__Q2_2ui6UIPageFv = 0x0253EB34;
+	createCursor__Q2_2ui6UIPageFv = 0x0253E0B4;
+	onDraw__Q2_2ui6UIPageFi = 0x0253E7E8;
+	__dt__Q2_2ui6UIPageFv = 0x0;
+	toRun__Q2_2ui6UIPageFv = 0x0253EA84;
 
     /* ui::UIAnimator */
     bind__Q2_2ui10UIAnimatorFiRCQ2_4sead23SafeStringBase__tm__2_c = 0x025307DC;
@@ -222,7 +228,7 @@ SECTIONS {
     setSpeed__Q2_2ui10UIAnimatorFifb = 0x025309F4;
 
     /* ui::Page_CourseBattle */
-    onHandler__Q2_2ui17Page_CourseBattleFRQ2_2ui7UIEvent = 0x025BD0E0;
+    onHandler__Q2_2ui17Page_CourseBattleFRCQ2_2ui7UIEvent = 0x025BD0E0;
     onCreate__Q2_2ui17Page_CourseBattleFv = 0x025BC8D8;
 
     /* ui::Page_CourseBase */
@@ -234,19 +240,19 @@ SECTIONS {
     /* ui::Page_CourseGP */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseGP = 0x101B29AC;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseGP = 0x101B2F24;
-    onHandler__Q2_2ui13Page_CourseGPFRQ2_2ui7UIEvent = 0x025BBD18;
+    onHandler__Q2_2ui13Page_CourseGPFRCQ2_2ui7UIEvent = 0x025BBD18;
     onCreate__Q2_2ui13Page_CourseGPFv = 0x025BBA6C;
 
     /* ui::Page_CourseVS */
     __LSG__typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B29AC;
     typeInfo__L0__getRuntimeTypeInfoStatic__Q2_2ui13Page_CourseVS = 0x101B2F24;
-    onHandler__Q2_2ui13Page_CourseVSFRQ2_2ui7UIEvent = 0x025BC24C;
-    toOut__Q2_2ui15Page_CourseBaseFv = 0x025BAF9C;
+    onHandler__Q2_2ui13Page_CourseVSFRCQ2_2ui7UIEvent = 0x025BC24C;
+    onUpdateComplete__Q2_2ui15Page_CourseBaseFv = 0x025BAF9C;
     onCreate__Q2_2ui13Page_CourseVSFv = 0x025BBE68;
 
     /* ui::Page_CourseWiFi */
     onCreate__Q2_2ui15Page_CourseWiFiFv = 0x025FD934;
-    onHandler__Q2_2ui15Page_CourseWiFiFRQ2_2ui7UIEvent = 0x025FDCF8;
+    onHandler__Q2_2ui15Page_CourseWiFiFRCQ2_2ui7UIEvent = 0x025FDCF8;
 
     /* ui::Page_TitleTop */
     onCreate__Q2_2ui13Page_TitleTopFv = 0x025ED27C;

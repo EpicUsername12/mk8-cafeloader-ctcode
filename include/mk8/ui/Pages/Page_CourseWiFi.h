@@ -25,8 +25,8 @@ class Page_CourseWiFi : public Page_CourseVS {
         return (Page_CourseWiFi*)UIEngine::spInstance->pageManager->getPage(ID);
     }
 
-    void onHandler(ui::UIEvent& event);
-    void onCreate();
+    virtual void onHandler(ui::UIEvent const& event);
+    virtual void onCreate();
 };
 
 } // namespace ui

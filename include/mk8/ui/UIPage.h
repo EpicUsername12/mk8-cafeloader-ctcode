@@ -11,6 +11,7 @@ typedef class UIPage UIPage;
 #include <container/seadBuffer.h>
 #include <container/seadPtrArray.h>
 #include <prim/seadSafeString.h>
+#include <prim/seadDelegate.h>
 
 namespace ui {
 typedef class UIHeap UIHeap;
@@ -26,14 +27,6 @@ typedef class UIEvent UIEvent;
 #include <mk8/ui/UILoader.h>
 #include <mk8/ui/UIInput.h>
 
-struct PTMF {
-    uint32_t vtable;
-    uint32_t instance;
-    int16_t field_8;
-    int16_t field_A;
-    uint32_t funcPtr;
-};
-
 namespace ui {
 
 class UIPage {
@@ -46,8 +39,8 @@ class UIPage {
         int state;
         int field_08;
         int field_0C;
-        PTMF func;
-        int field_20;
+        sead::Delegate<ui::UIPage> mDelegate;
+        bool field_20;
     };
 
     int layerID;
@@ -87,30 +80,75 @@ class UIPage {
 
     UIPage();
 
-    void toPrepare(UIFlow* flow);
+    virtual void createCursor();
+    virtual void onCreate() {
+    }
+    virtual void onInit() {
+    }
+    virtual void onDraw(int flags);
+    virtual void onUpdate() {
+    }
+    virtual void onUpdateIn() {
+        this->toRun();
+    }
+    virtual void onUpdateRun() {
+    }
+    virtual void onUpdateComplete() {
+        this->toOut();
+    }
+    virtual void onUpdateOut() {
+        this->toExit();
+    }
+    virtual void onCalc() {
+    }
+    virtual void onCalcAfter() {
+    }
+    virtual void onPrepare() {
+    }
+    virtual void onIn() {
+    }
+    virtual void onRun() {
+    }
+    virtual void onComplete() {
+    }
+    virtual void onOut() {
+    }
+    virtual void onExit() {
+    }
+    virtual void onDetach() {
+    }
+    virtual void onStateSub() {
+    }
+    virtual void somethingToIn(UIFlow* pFlow) {
+        this->toIn(flow);
+    }
+    virtual void onInput() {
+    }
+    virtual void onHandler(ui::UIEvent const& event) {
+    }
+    // virtual void onDialogUpdateRun(Page_Dialog &);
+    // virtual void onDialogComplete(Page_Dialog &);
+    // virtual void onDialogEnd(Page_Dialog &);
+    // virtual void onDialogSeq(Page_Dialog &);
+    // virtual void onDialogSeqEnd(Page_Dialog &);
 
     void toExit();
-
+    void toRun();
     void toIn(UIFlow* flow);
-
     void toOut();
 
-    void loadControl_(UIControl* pOutControl, int unk_5, sead::SafeStringBase<char> const& str);
-
-    void createControl_(UIControl* pOutControl, UIControl* mainControl, sead::SafeStringBase<char> const& str);
+    void loadControl_(UIControl* pOutControl, int unk_5, sead::SafeString const& str);
+    void createControl_(UIControl* pOutControl, UIControl* mainControl, sead::SafeString const& str);
+    UIAnimator* createAnimator(int idx, UIControl* control, int numAnims);
 
     void pushInput(ui::UIInput& input);
 
     void toPage(ui::UIFlow* pFlow);
-
-    void onCreate();
-
-    int onHandler(ui::UIEvent& event);
-
-    UIAnimator* createAnimator(int idx, UIControl* control, int numAnims);
+    void toPrepare(UIFlow* flow);
 };
 } // namespace ui
 
 static_assert(sizeof(ui::UIPage) == 0xC8, "Class doesn't match game class size");
+static_assert(sizeof(ui::UIPage::StateInfo) == 0x24, "Class doesn't match game class size");
 
 #endif

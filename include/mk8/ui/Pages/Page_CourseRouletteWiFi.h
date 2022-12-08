@@ -72,7 +72,7 @@ class Page_CourseRouletteWiFi : public UIPage {
     int field_2BC;
     int rouletteSoundId;
 
-    void onCreate();
+    virtual void onCreate();
 
     static Page_CourseRouletteWiFi* getPage() {
         return (Page_CourseRouletteWiFi*)ui::UIEngine::spInstance->pageManager->getPage(ID);

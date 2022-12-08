@@ -73,8 +73,8 @@ class Page_Race : public UIPage {
     char field_2F1;
     char field_2F2;
 
-    void onCreate();
-    void onCalc();
+    virtual void onCreate();
+    virtual void onCalc();
 
     void bindWindowLayout_(ui::UIControl*, ui::RaceWindow*);
     void loadTimeControl_(int id);

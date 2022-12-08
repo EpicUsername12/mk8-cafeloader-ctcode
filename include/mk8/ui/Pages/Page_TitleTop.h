@@ -34,7 +34,7 @@ class Page_TitleTop : public UIPage {
     nw::lyt::Pane* logoPane;
     nw::lyt::Pane* pressABtnPane;
 
-    void onCreate();
+    virtual void onCreate();
 
     static Page_TitleTop* getPage() {
         return (Page_TitleTop*)ui::UIEngine::spInstance->pageManager->getPage(ID);

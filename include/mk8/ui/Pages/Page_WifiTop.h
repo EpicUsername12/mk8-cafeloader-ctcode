@@ -19,7 +19,7 @@ class Page_WifiTop : public UIPage {
     UIFlow flow1;
     int field_100;
 
-    void onCreate();
+    virtual void onCreate();
 
     static Page_WifiTop* getPage() {
         return (Page_WifiTop*)ui::UIEngine::spInstance->pageManager->getPage(ID);

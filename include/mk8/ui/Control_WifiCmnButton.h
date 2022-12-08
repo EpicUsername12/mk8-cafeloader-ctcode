@@ -18,11 +18,11 @@ class Control_WifiCmnButton : public Control_Button {
 
   public:
     UICapTexture field_F4;
-    inline Control_WifiCmnButton(Page_WifiTop* page) {
+    Control_WifiCmnButton(Page_WifiTop* page) {
         this->flow = (UIFlow*)&page->flow0;
     }
 
-    inline Control_WifiCmnButton(UIPage* page) {
+    Control_WifiCmnButton(UIPage* page) {
         this->flow = page->flow;
     }
 };

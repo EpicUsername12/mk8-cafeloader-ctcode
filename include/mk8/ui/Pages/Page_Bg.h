@@ -10,6 +10,7 @@
 #include <mk8/ui/UIInput.h>
 #include <mk8/ui/UIPage.h>
 #include <mk8/ui/UICapTexture.h>
+#include <mk8/ui/UIEngine.h>
 
 namespace ui {
 class Page_Bg : public UIPage {
@@ -47,7 +48,7 @@ class Page_Bg : public UIPage {
   public:
     static const int ID = 23;
 
-    void onCreate();
+    virtual void onCreate();
 
     static Page_Bg* getPage() {
         return (Page_Bg*)UIEngine::spInstance->pageManager->getPage(ID);

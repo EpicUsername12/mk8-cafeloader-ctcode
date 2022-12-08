@@ -67,13 +67,13 @@ class UIControl {
 
     virtual void onCreate() {
     }
-    virtual void unk1() {
+    virtual void onInit() {
     }
     virtual void onIn() {
     }
     virtual void onCalc() {
     }
-    virtual void unk2() {
+    virtual void onInput() {
     }
     virtual void onFollowCursor(void* Page_Cursor, int);
     virtual bool onVisibleCursor() const {
