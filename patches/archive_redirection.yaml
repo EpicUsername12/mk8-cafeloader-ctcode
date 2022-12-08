@@ -1,0 +1,9 @@
+---
+Files:
+  - source/ctgp/archive_redirection.cpp
+Hooks:
+  # nw::lyt::ArcResourceAccessor::GetResourceSub
+  - type: hook
+    addr: 02694850
+    func: hook_nwlyt_GetResourceSub
+    real: real_nwlyt_GetResourceSub

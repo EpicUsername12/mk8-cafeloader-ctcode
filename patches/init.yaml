@@ -13,8 +13,3 @@ Hooks:
     instr: bl
     addr: 02677548
     func: call_ctors
-
-  - type: hook
-    addr: 025B9B44
-    func: hook_Page_CourseBase_initialize
-    real: real_Page_CourseBase_initialize

@@ -1,3 +1,5 @@
+// clang-format off
+
 #ifndef SEAD_SZS_DECOMPRESSOR_H_
 #define SEAD_SZS_DECOMPRESSOR_H_
 
@@ -47,13 +49,13 @@ public:
     static inline u32 getHeaderSize() { return 0x10; }
     void setWorkSize(u32 work_size);
 
-private:
-    static u32 getDecompAlignment(const void* header);
+	static u32 getDecompAlignment(const void* header);
     static u32 getDecompSize(const void* header);
-    static s32 readHeader_(DecompContext* context, const u8* srcp, u32 src_size);
+
+	static s32 readHeader_(DecompContext* context, const u8* srcp, u32 src_size);
     static s32 streamDecomp(DecompContext* context, const void* src, u32 len);
     static s32 decomp(void* dst, u32 dst_size, const void* src, u32 src_size);
-
+private:
     u32 mWorkSize;
     u8* mWorkBuffer;
 };
@@ -64,3 +66,4 @@ static_assert(sizeof(SZSDecompressor) == 0x58, "sead::SZSDecompressor size misma
 } // namespace sead
 
 #endif // SEAD_SZS_DECOMPRESSOR_H_
+//clang-format on

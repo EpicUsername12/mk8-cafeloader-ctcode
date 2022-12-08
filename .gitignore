@@ -61,4 +61,4 @@ files
 *.elf
 *.rpx
 *.ti
-ctgp_files/
+ctgp_content_files

@@ -30,3 +30,7 @@
 #else
 #define LOG(FMT, ARGS...) ((void (*)(const char* format, ...))(*(unsigned int*)(DATA_ADDR - 4)))(FMT, ##ARGS);
 #endif
+
+#define DECLARE_HOOK(res, name, ...)                      \
+    extern "C" res (*real_##name)(__VA_ARGS__) = nullptr; \
+    extern "C" res hook_##name(__VA_ARGS__)

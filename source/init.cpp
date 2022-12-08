@@ -18,8 +18,22 @@ extern "C" void call_ctors() {
 
     initialized = true;
 
-    OS_SPECIFICS->addr_OSDynLoad_Acquire = (u32)(MK8_OSDynLoad_Acquire & 0x03FFFFFC);
-    OS_SPECIFICS->addr_OSDynLoad_FindExport = (u32)(MK8_OSDynLoad_FindExport & 0x03FFFFFC);
+    int32_t MK8_OSDynLoad_Acquire_LI = MK8_OSDynLoad_Acquire & 0x03FFFFFC;
+    int32_t MK8_OSDynLoad_FindExport_LI = MK8_OSDynLoad_FindExport & 0x03FFFFFC;
+
+    // LI is actually signed, check for it ...
+    // Page 367 -> https://fail0verflow.com/media/files/ppc_750cl.pdf
+    {
+        if (MK8_OSDynLoad_Acquire_LI & 0x02000000) {
+            MK8_OSDynLoad_Acquire_LI -= 0x04000000;
+        }
+        if (MK8_OSDynLoad_FindExport_LI & 0x02000000) {
+            MK8_OSDynLoad_FindExport_LI -= 0x04000000;
+        }
+    }
+
+    OS_SPECIFICS->addr_OSDynLoad_Acquire = MK8_OSDynLoad_Acquire_LI;
+    OS_SPECIFICS->addr_OSDynLoad_FindExport = MK8_OSDynLoad_FindExport_LI;
 
     if (!(MK8_OSDynLoad_Acquire & 2))
         OS_SPECIFICS->addr_OSDynLoad_Acquire += (u32)&MK8_OSDynLoad_Acquire;
@@ -33,13 +47,4 @@ extern "C" void call_ctors() {
     InitAocFunctionPointers();
 
     LOG("Hello from playground.\n");
-}
-
-#include <mk8/ui/Pages/Page_CourseBase.h>
-
-extern "C" void (*real_Page_CourseBase_initialize)(ui::Page_CourseBase* _this) = nullptr;
-extern "C" void hook_Page_CourseBase_initialize(ui::Page_CourseBase* _this) {
-
-    real_Page_CourseBase_initialize(_this);
-    LOG("Hello! This is some debug text omg 0x%08x\n", real_Page_CourseBase_initialize);
 }

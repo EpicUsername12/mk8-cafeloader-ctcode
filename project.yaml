@@ -4,3 +4,4 @@ Name: CTGP-Cafe
 Include: include/sead
 Modules:
   - init.yaml
+  - archive_redirection.yaml

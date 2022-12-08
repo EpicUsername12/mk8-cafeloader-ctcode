@@ -341,4 +341,7 @@ SECTIONS {
     __ct__Q2_2al9ByamlIterFRCQ2_2al9ByamlIter = 0x0266A298;
     tryGetIterByIndex__Q2_2al9ByamlIterCFPQ2_2al9ByamlIteri = 0x0266AB58;
  
+	/* SZSDecompressor */
+	getDecompSize__Q2_4sead15SZSDecompressorSFPCv = 0x02747484;
+	decomp__Q2_4sead15SZSDecompressorSFPvUiPCvT2 = 0x02747614;
 }
